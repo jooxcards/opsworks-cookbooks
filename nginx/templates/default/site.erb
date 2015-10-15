@@ -1,11 +1,16 @@
 server {
   listen   80;
+
+  index    index.php;
+
   server_name  <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
   access_log  <%= node[:nginx][:log_dir] %>/<%= @application[:domains].first %>.access.log;
 
+  root   <%= @application[:absolute_document_root] %>;
+
   location / {
-    root   <%= @application[:absolute_document_root] %>;
-    index  index.html index.htm index.php;
+    add_header Access-Control-Allow-Origin *;
+    try_files $uri $uri/ /index.php?$query_string;
   }
   
   # Block all svn access
@@ -16,6 +21,17 @@ server {
   # Block all git access
   if ($request_uri ~* ^.*\.git.*$) {
      return 404;
+  }
+
+  # PHP FPM
+  location ~ \.php$ {
+    index  index.html index.htm index.php;
+    fastcgi_param APPLICATION_ENV production;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $request_filename;
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_split_path_info ^(.+\.php)(/.*)$;
+    include fastcgi_params;
   }
   
   location /nginx_status {
