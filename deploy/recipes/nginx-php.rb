@@ -23,9 +23,7 @@ node[:deploy].each do |application, deploy|
     cookbook "nginx"
   end
 
-  Chef::Log.info("--- App: " + deploy[:application])
-
-  if deploy[:application] == 'admin-api'
+  if deploy[:application] == 'admin_api' or deploy[:application] == 'admin-api'
 
     Chef::Log.info(" ")
     Chef::Log.info("--- Joox Application name: " + deploy[:application] + " directory: " + deploy[:deploy_to])
