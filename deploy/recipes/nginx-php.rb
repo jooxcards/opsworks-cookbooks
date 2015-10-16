@@ -22,4 +22,11 @@ node[:deploy].each do |application, deploy|
     application deploy
     cookbook "nginx"
   end
+
+  if deploy[:application] == 'admin-api'
+    Chef::Log.debug("--- Found admin-api application")
+    Chef::Log.debug("Fixing directory permission - #{deploy_to}")
+    Chef::Log.debug("---")
+  end
+
 end
