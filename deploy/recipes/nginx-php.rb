@@ -23,5 +23,22 @@ node[:deploy].each do |application, deploy|
     cookbook "nginx"
   end
 
-  Chef::Log.info("--- Application name: " + deploy[:application])
+  if deploy[:application] == 'admin-api'
+
+    Chef::Log.info(" ")
+    Chef::Log.info("--- Joox Application name: " + deploy[:application] + " directory: " + deploy[:deploy_to])
+    Chef::Log.info(" ")
+
+    directory "#{deploy[:deploy_to]}/current/storage" do
+      mode '0775'
+      recursive true
+    end
+
+    directory "#{deploy[:deploy_to]}/current/bootstrap/cache" do
+      mode '0775'
+      recursive true
+    end
+
+  end
+
 end
