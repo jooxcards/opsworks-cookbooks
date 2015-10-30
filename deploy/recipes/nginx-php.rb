@@ -29,15 +29,30 @@ node[:deploy].each do |application, deploy|
     Chef::Log.info("--- Joox Application name: " + deploy[:application] + " directory: " + deploy[:deploy_to])
     Chef::Log.info(" ")
 
-    Chef::Log.info(" Fixing permissions: #{deploy[:deploy_to]}/current/storage")
+    #####################
+    # settings
+    #####################
 
+    Chef::Log.info(" ENV: " + ENV.inspect)
+
+    #####################
+    # laravel actions
+    #####################
+
+    #Chef::Log.info(" Running: /usr/bin/php #{deploy[:deploy_to]}/current/artisan migrate")
+    #Chef::Log.info(" Running: /usr/bin/php #{deploy[:deploy_to]}/current/artisan app:clear-cache")
+
+    #####################
+    # permissions
+    #####################
+
+    Chef::Log.info(" Fixing permissions: #{deploy[:deploy_to]}/current/storage")
     directory "#{deploy[:deploy_to]}/current/storage" do
       mode '0775'
       recursive true
     end
 
     Chef::Log.info(" Fixing permissions: #{deploy[:deploy_to]}/current/bootstrap/cache")
-
     directory "#{deploy[:deploy_to]}/current/bootstrap/cache" do
       mode '0775'
       recursive true
