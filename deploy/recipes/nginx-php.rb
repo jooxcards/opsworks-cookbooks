@@ -33,7 +33,7 @@ node[:deploy].each do |application, deploy|
     # settings
     #####################
 
-    Chef::Log.info(" ENV: " + ENV.inspect)
+    Chef::Log.info(" ENV: " + deploy[:environment_variables].inspect)
 
     #####################
     # laravel actions
