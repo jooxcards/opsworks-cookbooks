@@ -43,16 +43,17 @@ node[:deploy].each do |application, deploy|
     newconfig.puts(apiconfig)
     newconfig.close
 
-    Chef::Log.info(" ENV config saved -------------------")
-    Chef::Log.info(File.read("#{deploy[:deploy_to]}/current/.env"))
-    Chef::Log.info(" //ENV config -------------------")
+    Chef::Log.info(" Config saved to #{deploy[:deploy_to]}/current/.env")
 
     #####################
     # laravel actions
     #####################
 
-    #Chef::Log.info(" Running: /usr/bin/php #{deploy[:deploy_to]}/current/artisan migrate")
-    #Chef::Log.info(" Running: /usr/bin/php #{deploy[:deploy_to]}/current/artisan app:clear-cache")
+    Chef::Log.info(" Running: /usr/bin/php #{deploy[:deploy_to]}/current/artisan migrate")
+    system "/usr/bin/php #{deploy[:deploy_to]}/current/artisan migrate"
+
+    Chef::Log.info(" Running: /usr/bin/php #{deploy[:deploy_to]}/current/artisan app:clear-cache")
+    system "/usr/bin/php #{deploy[:deploy_to]}/current/artisan app:clear-cache"
 
     #####################
     # permissions
