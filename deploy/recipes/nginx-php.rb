@@ -36,7 +36,7 @@ node[:deploy].each do |application, deploy|
     apiconfig = File.read("#{deploy[:deploy_to]}/current/.env.example")
 
     deploy[:environment_variables].each do |env_key, env_value|
-      apiconfig = apiconfig.gsub(/^#{env_key}=.*/, "#{envkey}=#{env_value")
+      apiconfig = apiconfig.gsub(/^#{env_key}=.*/, "#{envkey}=#{env_value}")
       Chef::Log.info(" ENV config -------------------")
       Chef::Log.info(apiconfig)
       Chef::Log.info(" //ENV config -------------------")
