@@ -37,10 +37,15 @@ node[:deploy].each do |application, deploy|
 
     deploy[:environment_variables].each do |env_key, env_value|
       apiconfig = apiconfig.gsub(/^#{env_key}=.*/, "#{env_key}=#{env_value}")
-      Chef::Log.info(" ENV config -------------------")
-      Chef::Log.info(apiconfig)
-      Chef::Log.info(" //ENV config -------------------")
     end
+
+    newconfig = File.open("#{deploy[:deploy_to]}/current/.env", "w")
+    newconfig.puts(apiconfig)
+    newconfig.close
+
+    Chef::Log.info(" ENV config saved -------------------")
+    Chef::Log.info(File.read("#{deploy[:deploy_to]}/current/.env"))
+    Chef::Log.info(" //ENV config -------------------")
 
     #####################
     # laravel actions
