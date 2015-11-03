@@ -43,6 +43,8 @@ node[:deploy].each do |application, deploy|
     newconfig.puts(apiconfig)
     newconfig.close
 
+Chef::Log.info(apiconfig)
+
     Chef::Log.info(" Config saved to #{deploy[:deploy_to]}/current/.env")
 
     #####################
