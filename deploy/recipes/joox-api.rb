@@ -31,8 +31,9 @@ node[:deploy].each do |application, deploy|
     #####################
     # composer actions
     #####################
-    system "/usr/bin/composer composer install -d #{deploy[:deploy_to]}/current --no-scripts"
-    system "/usr/bin/composer composer update -d #{deploy[:deploy_to]}/current --no-scripts"
+
+    system "/usr/bin/composer install -d #{deploy[:deploy_to]}/current --no-scripts"
+    system "/usr/bin/composer update -d #{deploy[:deploy_to]}/current --no-scripts"
     system "/usr/bin/composer dumpautoload -d #{deploy[:deploy_to]}/current"
 
     #####################
