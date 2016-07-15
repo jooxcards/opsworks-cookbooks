@@ -6,7 +6,7 @@ end
 
 node[:deploy].each do |application, deploy|
 
-  if deploy[:application] == 'admin_api' or deploy[:application] == 'admin-api'
+  if (deploy[:application] == 'admin_api' or deploy[:application] == 'admin-api') and File.directory?("#{deploy[:deploy_to]}")
 
     Chef::Log.info(" ")
     Chef::Log.info("--- Joox Application name: " + deploy[:application] + " directory: " + deploy[:deploy_to])
