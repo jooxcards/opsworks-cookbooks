@@ -1,8 +1,8 @@
 include_recipe 'deploy'
 
-#unless File.exists?("/usr/bin/composer")
-#  system "wget https://getcomposer.org/installer -O /tmp/composer-setup.php && php /tmp/composer-setup.php --force --install-dir=/usr/bin #--filename=composer"
-#end
+unless File.exists?("/usr/bin/composer")
+  system "wget https://getcomposer.org/installer -O /tmp/composer-setup.php && php /tmp/composer-setup.php --force --install-dir=/usr/bin --filename=composer"
+end
 
 node[:deploy].each do |application, deploy|
 
