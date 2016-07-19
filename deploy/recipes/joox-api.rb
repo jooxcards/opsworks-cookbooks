@@ -49,6 +49,18 @@ node[:deploy].each do |application, deploy|
       mode '0777'
       recursive true
     end
+    directory "#{deploy[:deploy_to]}/current/storage/framework/sessions" do
+      mode '0777'
+      recursive true
+    end
+    directory "#{deploy[:deploy_to]}/current/storage/framework/cache" do
+      mode '0777'
+      recursive true
+    end
+    directory "#{deploy[:deploy_to]}/current/storage/framework/views" do
+      mode '0777'
+      recursive true
+    end
 
     Chef::Log.info(" Fixing permissions: #{deploy[:deploy_to]}/current/bootstrap/cache")
     directory "#{deploy[:deploy_to]}/current/bootstrap/cache" do
