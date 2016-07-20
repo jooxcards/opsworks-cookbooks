@@ -88,6 +88,9 @@ node[:deploy].each do |application, deploy|
     Chef::Log.info(" Running: /usr/bin/php #{deploy[:deploy_to]}/current/artisan app:clear-cache")
     system "/usr/bin/php #{deploy[:deploy_to]}/current/artisan app:clear-cache"
 
+    Chef::Log.info(" Running: /etc/init.d/php5-fpm restart")
+    system "/etc/init.d/php5-fpm restart"
+
   end
 
 end
